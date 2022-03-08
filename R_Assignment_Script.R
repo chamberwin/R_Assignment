@@ -70,3 +70,150 @@ chr3_maize <- sort_maize %>%
   filter(Chromosome == 3)
 chr4_maize <- sort_maize %>%
   filter(Chromosome == 4)
+chr5_maize <- sort_maize %>%
+  filter(Chromosome == 5)
+chr6_maize <- sort_maize %>%
+  filter(Chromosome == 6)
+chr7_maize <- sort_maize %>%
+  filter(Chromosome == 7)
+chr8_maize <- sort_maize %>%
+  filter(Chromosome == 8)
+chr9_maize <- sort_maize %>%
+  filter(Chromosome == 9)
+chr10_maize <- sort_maize %>%
+  filter(Chromosome == 10)
+view(chr10_maize)
+sort_teosinte <- join_teosinte %>%
+  arrange(as.numeric(Chromosome), as.numeric(Position)) #arrange teosinte object by chromosome and position
+view(sort_teosinte)
+chr1_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 1) #create sorted teosinte objects
+view(chr1_teosinte)
+chr2_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 2)
+chr3_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 3)
+chr4_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 4)
+chr5_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 5)
+chr6_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 6)
+chr7_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 7)
+chr8_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 8)
+chr9_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 9)
+chr10_teosinte <- sort_teosinte %>%
+  filter(Chromosome == 10)
+view(chr10_teosinte)
+write.table(chr1_maize, file = "chr1_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE) #creates file for maize
+view(chr1_maize.txt)
+write.table(chr2_maize, file = "chr2_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr3_maize, file = "chr3_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr4_maize, file = "chr4_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr5_maize, file = "chr5_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr6_maize, file = "chr6_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr7_maize, file = "chr7_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr8_maize, file = "chr8_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr9_maize, file = "chr9_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr10_maize, file = "chr10_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr1_teosinte, file = "chr1_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE) #creates files for teosinte
+write.table(chr2_teosinte, file = "chr2_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr3_teosinte, file = "chr3_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr4_teosinte, file = "chr4_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr5_teosinte, file = "chr5_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr6_teosinte, file = "chr6_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr7_teosinte, file = "chr7_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr8_teosinte, file = "chr8_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr9_teosinte, file = "chr9_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr10_teosinte, file = "chr10_teosinte.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+sort_desc_maize <- join_maize %>%
+  arrange(as.numeric(Chromosome), desc(as.numeric(Position))) #sort maize in descending position
+view(sort_desc_maize)
+maize_dash <- data.frame(lapply(sort_desc_maize, gsub, pattern = "[?]", replacement = "-")) #replace ? within brackets because it is wildcard
+view(maize_dash)
+chr1_maize_dash <- maize_dash %>% #creates sorted maize objects with dash
+  filter(Chromosome == 1)
+view(chr1_maize_dash)
+chr2_maize_dash <- maize_dash %>%
+  filter(Chromosome == 2)
+chr3_maize_dash <- maize_dash %>%
+  filter(Chromosome == 3)
+chr4_maize_dash <- maize_dash %>%
+  filter(Chromosome == 4)
+chr5_maize_dash <- maize_dash %>%
+  filter(Chromosome == 5)
+chr6_maize_dash <- maize_dash %>%
+  filter(Chromosome == 6)
+chr7_maize_dash <- maize_dash %>%
+  filter(Chromosome == 7)
+chr8_maize_dash <- maize_dash %>%
+  filter(Chromosome == 8)
+chr9_maize_dash <- maize_dash %>%
+  filter(Chromosome == 9)
+chr10_maize_dash <- maize_dash %>%
+  filter(Chromosome == 10)
+view(chr10_maize_dash)
+write.table(chr1_maize_dash, file = "chr1_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE) #creates file for maize dash
+write.table(chr2_maize_dash, file = "chr2_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr3_maize_dash, file = "chr3_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr4_maize_dash, file = "chr4_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr5_maize_dash, file = "chr5_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr6_maize_dash, file = "chr6_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr7_maize_dash, file = "chr7_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr8_maize_dash, file = "chr8_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr9_maize_dash, file = "chr9_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr10_maize_dash, file = "chr10_maize_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+sort_desc_teosinte <- join_teosinte %>%
+  arrange(as.numeric(Chromosome), desc(as.numeric(Position))) #sort teosinte in descending position
+view(sort_desc_teosinte)
+teosinte_dash <- data.frame(lapply(sort_desc_teosinte, gsub, pattern = "[?]", replacement = "-")) #replace ? within brackets because it is wildcard
+view(teosinte_dash)
+chr1_teosinte_dash <- teosinte_dash %>% #creates sorted teosinte objects with dash
+  filter(Chromosome == 1)
+view(chr1_teosinte_dash)
+chr2_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 2)
+chr3_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 3)
+chr4_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 4)
+chr5_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 5)
+chr6_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 6)
+chr7_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 7)
+chr8_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 8)
+chr9_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 9)
+chr10_teosinte_dash <- teosinte_dash %>% 
+  filter(Chromosome == 10)
+view(chr10_teosinte_dash)
+write.table(chr1_teosinte_dash, file = "chr1_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE) #creates file for teosinte dash
+write.table(chr2_teosinte_dash, file = "chr2_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr3_teosinte_dash, file = "chr3_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr4_teosinte_dash, file = "chr4_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr5_teosinte_dash, file = "chr5_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr6_teosinte_dash, file = "chr6_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr7_teosinte_dash, file = "chr7_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr8_teosinte_dash, file = "chr8_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr9_teosinte_dash, file = "chr9_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+write.table(chr10_teosinte_dash, file = "chr10_teosinte_dash.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+library(ggplot2) #load visualization library
+ggplot(data = sort_maize) + geom_bar(mapping=aes(x=Chromosome))
+ggplot(data = sort_teosinte) + geom_bar(mapping=aes(x=Chromosome)) #testing different variations
+sort_maize_bin <- sort_maize %>%
+  filter(Position != "unknown") %>%
+  filter(Position != "multiple") %>%
+  mutate(position_binned = cut(as.numeric(Position), 10)) %>%
+  filter(Chromosome != "multiple") %>%
+  filter(Chromosome != "unknown")
+ggplot(data = sort_maize_bin) +
+  geom_bar(mapping = aes(x = position_binned, fill = Chromosome))+
+  facet_grid(~as.numeric(Chromosome)) +
+  xlab("Position (basepairs)") + ylab("SNP Distribution") 
+
