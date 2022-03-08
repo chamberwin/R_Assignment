@@ -17,6 +17,10 @@ dim(snp_pos)
 length(snp_pos)
 object.size(snp_pos)
 summary(snp_pos)
+snp_cut <- snp_pos %>%
+  select(SNP_ID, Chromosome, Position) %>%
+  arrange(SNP_ID)
+view(snp_cut)
 ## Maize Join
 geno_maize <- geno %>%
   filter(Group %in% c("ZMMIL", "ZMMLR", "ZMMMR", "Sample_ID")) %>%
@@ -53,3 +57,16 @@ join_teosinte <- snp_cut %>%
   inner_join(geno_teosinte, by = "SNP_ID")
 # joins both files - inner_join makes sure we take only SNP_IDs in both files
 view(join_teosinte) #double check it joined correctly
+sort_maize <- join_maize %>%
+  arrange(as.numeric(Chromosome), as.numeric(Position))
+# sorts by chromosome number and position, in ascending order
+view(sort_maize)
+chr1_maize <- sort_maize %>%
+  filter(Chromosome == 1)
+view(chr1_maize)
+chr2_maize <- sort_maize %>%
+  filter(Chromosome == 2)
+chr3_maize <- sort_maize %>%
+  filter(Chromosome == 3)
+chr4_maize <- sort_maize %>%
+  filter(Chromosome == 4)
