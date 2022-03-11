@@ -48,7 +48,7 @@ view(snp_cut) #Check work
 ```
 
 ## Maize Join
-```{bash}
+```{r}
 geno_maize <- geno %>%
   filter(Group %in% c("ZMMIL", "ZMMLR", "ZMMMR", "Sample_ID")) %>% # filter by maize groups only, including sample ID
   t() %>% # transpose - note it's added automatic column names (V1, V2, etc. in new header)
@@ -60,7 +60,6 @@ view(geno_maize) #double check joined by SNP_ID
 join_maize <- snp_cut %>%
   inner_join(geno_maize, by = "SNP_ID") # joins both files - inner_join makes sure we take only SNP_IDs in both files
 view(join_maize) #double check it joined correctly
-
 ```
 
 ## Teosinte Join
@@ -125,7 +124,6 @@ write.table(chr9_maize, file = "chr9_maize.txt", sep = "\t", row.names = FALSE, 
 write.table(chr10_maize, file = "chr10_maize.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
 ```
 
-```
 ## Sort Joined Teosinte
 ```{r}
 sort_teosinte <- join_teosinte %>%
@@ -483,28 +481,24 @@ ggsave("GC_Content_Species.pdf", plot = gc_species_plot, width = 10, height = 5,
 ggsave("GC_Content_Species.png", plot = gc_species_plot, width = 10, height = 5, units = "in", dpi = 300) # print to png
 ```
 
+## Visuals
 
-```
+
+![SNP Positions by Chromosome](\Users\chamb\Documents\R_Assignment\SNP_figure.png)
 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+![SNP Distribution Between Species](\Users\chamb\Documents\R_Assignment\SNP_pos_bar.png)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-``'   
-```library(tidyverse)  #For data maniupluation
-library(dplyr)
-install.packages("janitor")
-install.packages("data.table")
-library(janitor)
-library(data.table)
+![Zygosity by Species](\Users\chamb\Documents\R_Assignment\Zygo_Species.png)
 
-## Including Plots
 
-You can also embed plots, for example:
+![Zygosity by Groups](\Users\chamb\Documents\R_Assignment\Zygo_Groups.png)
 
-``` 
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+![Freestyle: GC Content by Group](\Users\chamb\Documents\R_Assignment\GC_Content_Groups.png)
+
+
+![Freestyle: GC Content by Species](\Users\chamb\Documents\R_Assignment\GC_Content_Species.png)
+
+
