@@ -14,6 +14,7 @@ To begin, I would recommend viewing:
 Ascending order
 
 *Chr1_maize, Chr2_maize, Chr3_maize, Chr4_maize, Chr5_maize, Chr6_maize, Chr7_maize, Chr8_maize, Chr9_maize, Chr10, maize*
+
 Descending order with ? replaced with dash
 *Chr1_maize_dash, Chr2_maize_dash, Chr3_maize_dash, Crh4_maize_dash, Chr5_maize_dash, Chr6_maize_dash, Chr7_maize_dash, Chr8_maize_dash, Chr9_maize_dash, Chr10_maize_dash*
 
