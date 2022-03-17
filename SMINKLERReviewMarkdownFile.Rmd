@@ -1,0 +1,7 @@
+---
+title: "SMINKLERReview.HChamberlain-Irwin"
+output: html_document
+date: '2022-03-17'
+---
+
+You did a really great job on this assignment. I was able to follow and copy your code easily. I obtained all of the same files you did, and they were all in the correct order with the correct symbols. Your graph visalizations looked great. The only suggestion I have is to organize your files on Github like you mentioned. Other than that, I think you did a great job!
