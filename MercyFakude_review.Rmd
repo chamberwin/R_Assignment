@@ -1,0 +1,55 @@
+---
+title: "MercyFakude_review"
+author: "Mercy Fakude"
+date: '2022-03-15'
+output: html_document
+---
+## I appreciated that you included a readme file to lead me through the structure of your work, and which file to use for the review. For the review, I used the 'R_Assignment_Script.R'
+
+## I did not run into errors  when running each command line. Therefore, I have general comments on your overall work. 
+```{r}
+###ncol(geno) #Number of columns for genotype data is 986
+###nrow(geno) #Number of rows is 2781
+###dim(geno) #Dimensions of rows (2781) and columns (986)
+```
+## I will be honest I used the all 3 commands on my work too but come to think about it, the 'dim' command was enough to return both rows and coloumns.
+
+## You did a very good job in mentioning what each command line returns.
+
+## I really liked that each and every chunk of code had a concise heading of what the chunk will return.As a new R user this made it easy fro me to track what the code returns.
+
+## Your naming system for chromosome chromosome arrangement (ascending and descending) files was clear.
+
+## This could be from my side since I'm new to R. In addition to the packages you used, I loaded a ggplot package to successfully run your code by just run all. 
+
+## You did a good job by first sorting your chromosomes for both maize and teosinte. Offcourse, there were a lot of files to view but it was well organized. Good job!!! 
+
+### I really liked your visuals (plots). I think it was creative to come up with a way of ploting both maize and teosinte in one plot or side by side rather than having two different plots.
+
+### I also took some lessons from your work. I now know there is a ggpubr R package which facilitates the creation of beautiful ggplot2-based graphs.
+
+## Just a suggestion: After joining your snp and maize file (join_maize) in line 45,you can use a loop to subset and save the chromosomes as follows:
+
+```{r}
+#for (chr in 1:10) {
+#maize_chr <- subset(snp+maizegeno.select,Chromosome == chr) %>% arrange(Position) 
+##subset by chromosome and arrange in ascending order
+#maize_chr[maize_chr == '?/?'] <- '?' 
+##replace symbol ('?/?') with symbol ('?')
+#write.csv(maize_chr,file = paste("./path or directory where you save your work/maize_chr",chr,"_Q.csv",sep = ""))
+##save files and name each file by chromosome number and symbol
+
+#save files and name each file by chromosome
+#maize_chr_d <- subset(snp+maizegeno.select,Chromosome == chr) %>% arrange(desc(Position))
+#subset by chromosome and arrange in descending order
+#maize_chr_d[maize_chr_d == '?/?'] <- '-' 
+#replace symbol ('?/?') with symbol('?')
+#write.csv(maize_chr_d,file = paste("./path or directory where you save your work/maize_chr",chr,"_H.csv",sep = ""))
+#save files and name each file by chromosome number and symbol  
+#}
+```
+## You can do the same for teosinte.I find it saves time but you dont have to do this it is just personal preference. 
+
+### In conclusion, I think you did very well on this assignment. It was easy to follow and well organized.
+
+
