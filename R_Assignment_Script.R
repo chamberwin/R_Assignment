@@ -411,8 +411,8 @@ ggsave("Zygo_Groups.png", plot = zygo_groups, width = 10, height = 5, units = "i
 
 ## Freestyle Visual, GC Content
 geno5 <- read.delim("https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt", header = TRUE, sep = "\t") #Pull new genotype file to mutate
-geno5$GC <- apply(geno5, 1, function(x) length(which(x == ("G/C") | x == ("C/G") | x == ("G/A") | x == ("G/T") | x == ("G/G") | x == ("C/A") | x == ("C/T") | x == ("C/C") | x == ("A/G") | x == ("A/C") | x == ("T/G") | x == ("T/C")))) #Applies exact matches for anything with a G or C
-geno5$not_GC <- apply(geno5, 1, function(x) length(which(x == ("?/?") | x == ("A/A") | x == ("T/T") | x == ("A/T") | x == ("T/A")))) #Applies matches for anything not G or C
+geno5$GC <- apply(geno5, 1, function(x) length(which(x == ("G/C") | x == ("C/G")| x == ("G/G") | x == ("C/C")))) #Filters anything that is certainly a G or a C
+geno5$not_GC <- apply(geno5, 1, function(x) length(which(x == ("?/?") | x == ("A/A") | x == ("T/T") | x == ("A/C") | x == ("A/T") | x == ("A/G") | x == ("C/A") | x == ("C/T") | x == ("G/A") | x == ("G/T") | x == ("T/A") | x == ("T/C") | x == ("T/G")))) #Filters anything that is not for sure a G or C
 view(geno5) #Check work on last column               
 geno_gc <- geno5 %>%
   filter(Group %in% c("ZMMIL", "ZMMLR", "ZMMMR", "ZMPBA", "ZMPIL", "ZMPJA")) %>%
@@ -433,14 +433,16 @@ gc_group_plot <- ggplot(gc_pivot, aes(fill = GC_content, y = count, x = Group)) 
   ylab("Proportion") + #Relabel y axis to Proportion
   geom_bar(position = "fill", stat = "identity") #Make Pretty
 gc_group_plot #Check work
-#There is more GC content than non GC per group
+#There is a similar amount of GC content than non GC per group
 gc_species_plot <- ggplot(gc_pivot, aes(fill = GC_content, y = count, x = species)) + #Changes x axis to species
   xlab("Species") +
   ylab("Proportion") +
   geom_bar(position = "fill", stat = "identity")
 gc_species_plot #Check work
-#There is slightly more GC content in teosinte. This may be an indication of more diversity often seen in wild progenitors.
+#GC content is similar among both species
 ggsave("GC_Content_Groups.pdf", plot = gc_group_plot, width = 10, height = 5, units = "in", dpi = 300) # print to pdf
 ggsave("GC_Content_Groups.png", plot = gc_group_plot, width = 10, height = 5, units = "in", dpi = 300) # print to png
 ggsave("GC_Content_Species.pdf", plot = gc_species_plot, width = 10, height = 5, units = "in", dpi = 300) # print to pdf
 ggsave("GC_Content_Species.png", plot = gc_species_plot, width = 10, height = 5, units = "in", dpi = 300) # print to png
+install.packages("rmarkdown") #Install R markdown to annotate script
+library(rmarkdown)

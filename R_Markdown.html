@@ -386,28 +386,22 @@ snp_pos &lt;- read.delim(&quot;https://raw.githubusercontent.com/chamberwin/BCB5
 </div>
 <div id="inspect-data" class="section level2">
 <h2>Inspect data</h2>
-<pre class="{r}"><code>ncol(geno) #Number of columns for genotype data is 986
-nrow(geno) #Number of rows is 2781
-dim(geno) #Dimensions of rows (2781) and columns (986)
+<pre class="{r}"><code>dim(geno) #Dimensions of rows (2781) and columns (986)
 length(geno) #Number of columns is 986
 object.size(geno) #Size of file is 22681376 bytes
 summary(geno) #Because of large number of columns, not super information
 head(geno) #A little better than summary at seeing structure
-ncol(snp_pos) #Number of columns in SNP position data is 15
-nrow(snp_pos) #Number of rows in SNP position data is 983
 dim(snp_pos) #Dimensions of rows (983) and columns (15)
 length(snp_pos) #Number of columns is 15
 object.size(snp_pos)
 summary(snp_pos) #Size of file is 327392 bytes
-head(snp_pos) #Look at data structure
-</code></pre>
+head(snp_pos) #Look at data structure</code></pre>
 </div>
 <div id="prepare-snp-position-file-for-join" class="section level2">
 <h2>Prepare SNP position file for join</h2>
 <pre class="{r}"><code>snp_cut &lt;- snp_pos %&gt;% #Create prepared file for join
   select(SNP_ID, Chromosome, Position) %&gt;% #Select only these columns
-  arrange(SNP_ID) #Arrange by SNP_ID
-view(snp_cut) #Check work</code></pre>
+  arrange(SNP_ID) #Arrange by SNP_ID</code></pre>
 </div>
 <div id="maize-join" class="section level2">
 <h2>Maize Join</h2>
@@ -418,10 +412,8 @@ view(snp_cut) #Check work</code></pre>
   setDT(keep.rownames = TRUE) %&gt;% #gives column 1 a placeholder name as well
   row_to_names(row_number = 1) %&gt;% # sets first row as column names
   rename(SNP_ID = Sample_ID) # rename first column as SNP_ID so we can join on like column names
-view(geno_maize) #double check joined by SNP_ID
 join_maize &lt;- snp_cut %&gt;%
-  inner_join(geno_maize, by = &quot;SNP_ID&quot;) # joins both files - inner_join makes sure we take only SNP_IDs in both files
-view(join_maize) #double check it joined correctly</code></pre>
+  inner_join(geno_maize, by = &quot;SNP_ID&quot;) # joins both files - inner_join makes sure we take only SNP_IDs in both files</code></pre>
 </div>
 <div id="teosinte-join" class="section level2">
 <h2>Teosinte Join</h2>
@@ -432,46 +424,33 @@ view(join_maize) #double check it joined correctly</code></pre>
   setDT(keep.rownames = TRUE) %&gt;% #gives column 1 a placeholder name as well
   row_to_names(row_number = 1) %&gt;% # sets first row as column names
   rename(SNP_ID = Sample_ID) # rename first column as SNP_ID so we can join on like column names
-view(geno_teosinte) #double check it is orded by SNP_ID
 join_teosinte &lt;- snp_cut %&gt;%
-  inner_join(geno_teosinte, by = &quot;SNP_ID&quot;) # joins both files - inner_join makes sure we take only SNP_IDs in both files
-view(join_teosinte) #double check it joined correctly</code></pre>
+  inner_join(geno_teosinte, by = &quot;SNP_ID&quot;) # joins both files - inner_join makes sure we take only SNP_IDs in both files</code></pre>
 </div>
 <div id="sort-joined-maize" class="section level2">
 <h2>Sort Joined Maize</h2>
 <pre class="{r}"><code>sort_maize &lt;- join_maize %&gt;%
   arrange(as.numeric(Chromosome), as.numeric(Position)) # sorts by chromosome number and position, in ascending order
-view(sort_maize) #Check work
 chr1_maize &lt;- sort_maize %&gt;% #Creates object for chr1
   filter(Chromosome == 1) #filters for chromosome 1 only
-view(chr1_maize) #Check work
 chr2_maize &lt;- sort_maize %&gt;% #Repeat for all chromosomes
   filter(Chromosome == 2)
-view(chr2_maize)
 chr3_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 3)
-view(chr3_maize)
 chr4_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 4)
-view(chr4_maize)
 chr5_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 5)
-view(chr5_maize)
 chr6_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 6)
-view(chr6_maize)
 chr7_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 7)
-view(chr7_maize)
 chr8_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 8)
-view(chr8_maize)
 chr9_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 9)
-view(chr9_maize)
 chr10_maize &lt;- sort_maize %&gt;%
   filter(Chromosome == 10)
-view(chr10_maize)
 write.table(chr1_maize, file = &quot;chr1_maize.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #creates .txt file for maize chromosome 1
 write.table(chr2_maize, file = &quot;chr2_maize.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #Repeat for all chromosomes
 write.table(chr3_maize, file = &quot;chr3_maize.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE)
@@ -487,37 +466,26 @@ write.table(chr10_maize, file = &quot;chr10_maize.txt&quot;, sep = &quot;\t&quot
 <h2>Sort Joined Teosinte</h2>
 <pre class="{r}"><code>sort_teosinte &lt;- join_teosinte %&gt;%
   arrange(as.numeric(Chromosome), as.numeric(Position)) #arrange teosinte object by chromosome and position
-view(sort_teosinte) #Check work
 chr1_teosinte &lt;- sort_teosinte %&gt;%  #create sorted teosinte objects
   filter(Chromosome == 1) #Filter by chromosome 1
-view(chr1_teosinte) #Check work
 chr2_teosinte &lt;- sort_teosinte %&gt;% #Repeat for all chromosomes
   filter(Chromosome == 2)
-view(chr2_teosinte)
 chr3_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 3)
-view(chr3_teosinte)
 chr4_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 4)
-view(chr4_teosinte)
 chr5_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 5)
-view(chr5_teosinte)
 chr6_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 6)
-view(chr6_teosinte)
 chr7_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 7)
-view(chr7_teosinte)
 chr8_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 8)
-view(chr8_teosinte)
 chr9_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 9)
-view(chr9_teosinte)
 chr10_teosinte &lt;- sort_teosinte %&gt;%
   filter(Chromosome == 10)
-view(chr10_teosinte)
 write.table(chr1_teosinte, file = &quot;chr1_teosinte.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #creates .txt files for teosinte
 write.table(chr2_teosinte, file = &quot;chr2_teosinte.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE)
 write.table(chr3_teosinte, file = &quot;chr3_teosinte.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE)
@@ -533,39 +501,27 @@ write.table(chr10_teosinte, file = &quot;chr10_teosinte.txt&quot;, sep = &quot;\
 <h2>Maize in descending order with ? replaced with dash</h2>
 <pre class="{r}"><code>sort_desc_maize &lt;- join_maize %&gt;% #Create object for sorted descending maize
   arrange(as.numeric(Chromosome), desc(as.numeric(Position))) #sort maize in descending position
-view(sort_desc_maize) #Check work
 maize_dash &lt;- data.frame(lapply(sort_desc_maize, gsub, pattern = &quot;[?]&quot;, replacement = &quot;-&quot;)) #replace ? within brackets because it is wildcard
-view(maize_dash) #Check work
 chr1_maize_dash &lt;- maize_dash %&gt;% #creates descending sorted maize object where ? is replaced with -
   filter(Chromosome == 1) #Filter by chromosome 1
-view(chr1_maize_dash) #Check work
 chr2_maize_dash &lt;- maize_dash %&gt;% #Repeat for all chromosomes
   filter(Chromosome == 2)
-view(chr2_maize_dash)
 chr3_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 3)
-view(chr3_maize_dash)
 chr4_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 4)
-view(chr4_maize_dash)
 chr5_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 5)
-view(chr5_maize_dash)
 chr6_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 6)
-view(chr6_maize_dash)
 chr7_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 7)
-view(chr7_maize_dash)
 chr8_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 8)
-view(chr8_maize_dash)
 chr9_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 9)
-view(chr9_maize_dash)
 chr10_maize_dash &lt;- maize_dash %&gt;%
   filter(Chromosome == 10)
-view(chr10_maize_dash)
 write.table(chr1_maize_dash, file = &quot;chr1_maize_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #creates .txt file for maize sorted in descending order with dash
 write.table(chr2_maize_dash, file = &quot;chr2_maize_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #Repeat for all chromosomes
 write.table(chr3_maize_dash, file = &quot;chr3_maize_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE)
@@ -581,39 +537,27 @@ write.table(chr10_maize_dash, file = &quot;chr10_maize_dash.txt&quot;, sep = &qu
 <h2>Teosinte in descending order with ? replaced with dash</h2>
 <pre class="{r}"><code>sort_desc_teosinte &lt;- join_teosinte %&gt;% #Create object for sorting teosinte in descending order
   arrange(as.numeric(Chromosome), desc(as.numeric(Position))) #sort teosinte in descending position
-view(sort_desc_teosinte) #Check work
 teosinte_dash &lt;- data.frame(lapply(sort_desc_teosinte, gsub, pattern = &quot;[?]&quot;, replacement = &quot;-&quot;)) #replace ? within brackets because it is wildcard
-view(teosinte_dash) #check work
 chr1_teosinte_dash &lt;- teosinte_dash %&gt;% #creates sorted teosinte objects with dash
   filter(Chromosome == 1) #Filter by chromosome 1
-view(chr1_teosinte_dash) #Check work
 chr2_teosinte_dash &lt;- teosinte_dash %&gt;%  #Repeat for all chromosomes
   filter(Chromosome == 2)
-view(chr2_teosinte_dash)
 chr3_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 3)
-view(chr3_teosinte_dash)
 chr4_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 4)
-view(chr4_teosinte_dash)
 chr5_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 5)
-view(chr5_teosinte_dash)
 chr6_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 6)
-view(chr6_teosinte_dash)
 chr7_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 7)
-view(chr7_teosinte_dash)
 chr8_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 8)
-view(chr8_teosinte_dash)
 chr9_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 9)
-view(chr9_teosinte_dash)
 chr10_teosinte_dash &lt;- teosinte_dash %&gt;% 
   filter(Chromosome == 10)
-view(chr10_teosinte_dash)
 write.table(chr1_teosinte_dash, file = &quot;chr1_teosinte_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #creates .txt file for descending teosinte with dash
 write.table(chr2_teosinte_dash, file = &quot;chr2_teosinte_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE) #Repeat for all chromosomes
 write.table(chr3_teosinte_dash, file = &quot;chr3_teosinte_dash.txt&quot;, sep = &quot;\t&quot;, row.names = FALSE, col.names = TRUE)
@@ -630,7 +574,8 @@ write.table(chr10_teosinte_dash, file = &quot;chr10_teosinte_dash.txt&quot;, sep
 </div>
 <div id="load-packages" class="section level2">
 <h2>Load Packages</h2>
-<pre class="{r}"><code>library(ggplot2) #load visualization library
+<pre class="{r}"><code>library(ggplot) #reviewer needed this to view visuals
+library(ggplot2) #load visualization library
 install.packages(&quot;ggpubr&quot;) #Package for better visualization
 library(ggpubr) #load package</code></pre>
 </div>
@@ -643,7 +588,6 @@ library(ggpubr) #load package</code></pre>
   filter(Chromosome != &quot;multiple&quot;) %&gt;% #Filter out multiple chromosomes
   filter(Chromosome != &quot;unknown&quot;) %&gt;% #Filter out unknown chromosomes
   mutate(Chromosome = fct_relevel(Chromosome, c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;))) #Use levels to put visuals in chromosome order
-view(sort_maize_bin) #Check work on last column for binning
 maize &lt;- ggplot(data = sort_maize_bin) + #Name visual maize
   geom_bar(mapping = aes(x = position_binned, fill = Chromosome)) + #Create bar plot with x as binned position and fill as chromosome #
   xlab(&quot;Position (basepairs)&quot;) + #Update x label to Position (basepairs)
@@ -662,7 +606,6 @@ maize #Check work
   filter(Chromosome != &quot;multiple&quot;) %&gt;% #Filter out multiple chromosomes
   filter(Chromosome != &quot;unknown&quot;) %&gt;% #Filter out unknown chromosomes
   mutate(Chromosome = fct_relevel(Chromosome, c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;))) #Use levels to put visuals in chromosome order
-view(sort_teosinte_bin) #Check work
 teosinte &lt;- ggplot(data = sort_teosinte_bin) + #Name visual teosinte
   geom_bar(mapping = aes(x = position_binned, fill = Chromosome)) + #Create bar plot with x as binned position and fill as chromosome #
   xlab(&quot;Position (basepairs)&quot;) + #Update x label to Positions (basepairs)
@@ -686,7 +629,6 @@ ggsave(&quot;SNP_figure.png&quot;, plot = SNP_figure, width = 12, height = 15, u
 <h2>Add Multiple and Unknown Chromsomes with SNP Positions</h2>
 <pre class="{r}"><code>unknown_maize &lt;- sort_maize %&gt;% #Show unknown on each chromosome for maize
   filter(Chromosome == &quot;unknown&quot;)
-view(unknown_maize) #Check work
 multiple_maize &lt;- sort_maize %&gt;% #Show multiple possibilities for each chromosome
   filter(Chromosome == &quot;multiple&quot;)
 view(multiple_maize) #Check work
@@ -704,10 +646,8 @@ mchrmult &lt;- nrow(multiple_maize)
 mchrunkn &lt;- nrow(unknown_maize)
 unknown_teosinte &lt;- sort_teosinte %&gt;% #Show unknown on each chromosome for teosinte
   filter(Chromosome == &quot;unknown&quot;)
-view(unknown_teosinte) #Check work
 multiple_teosinte &lt;- sort_teosinte %&gt;% #Show multiple possibiliites for each chromosome
   filter(Chromosome == &quot;multiple&quot;)
-view(multiple_teosinte) #Check work
 tchr1 &lt;- nrow(chr1_teosinte)#Create object for chromosome 1
 tchr2 &lt;- nrow(chr2_teosinte) #Repeat for all chromosomes
 tchr3 &lt;- nrow(chr3_teosinte)
@@ -723,7 +663,6 @@ tchrunkn &lt;- nrow(unknown_teosinte)
 SNP_pos_df &lt;- data.frame(chromosome = c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;multiple&quot;, &quot;unknown&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;multiple&quot;, &quot;unknown&quot;),
                          species = c(&quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;maize&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;, &quot;teosinte&quot;),
                          SNP_positions = c(mchr1, mchr2, mchr3, mchr4, mchr5, mchr6, mchr7, mchr8, mchr9, mchr10, mchrmult, mchrunkn, tchr1, tchr2, tchr3, tchr4, tchr5, tchr6, tchr7, tchr8, tchr9, tchr10, tchrmult, tchrunkn)) #Create a dataframe with Chromsome position, species, and SNP Position columns
-view(SNP_pos_df) #Check work
 SNP_pos_df &lt;- SNP_pos_df %&gt;%
   mutate(chromosome = fct_relevel(chromosome, c(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;multiple&quot;, &quot;unknown&quot;))) #Create levels for chromosome numbers to be in order
 SNP_pos_bar &lt;- ggplot(data = SNP_pos_df, aes(x = species, y = SNP_positions, fill = species)) + #Create bar plot with species on x, SNP position on y, and fill as species
@@ -741,14 +680,10 @@ ggsave(&quot;SNP_pos_bar.png&quot;, plot = SNP_pos_bar, width = 10, height = 5, 
 <h2>Zygosity Visualization</h2>
 <pre class="{r}"><code>geno2 &lt;- read.delim(&quot;https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt&quot;, header = TRUE, sep = &quot;\t&quot;) #Pull new genotype file to mutate
 geno2$homozygous &lt;- apply(geno2, 1, function(x) length(which(x == (&quot;A/A&quot;) | x == (&quot;T/T&quot;) | x == (&quot;C/C&quot;) | x == (&quot;G/G&quot;)))) #Search for all homozygous nucleotides
-view(geno2) #Check work
 geno2 &lt;- geno2 %&gt;%
   mutate(homozygous = (homoA + homoT + homoC + homoG)) #Add columns at end for each homozygous type and total count
-view(geno2) #Check work on last column
 geno2$heterozygous &lt;- apply(geno2, 1, function(x) length(which(x == (&quot;A/C&quot;) | x == (&quot;A/T&quot;) | x == (&quot;A/G&quot;) | x == (&quot;C/A&quot;) | x == (&quot;C/T&quot;) | x == (&quot;C/G&quot;) | x == (&quot;G/A&quot;) | x == (&quot;G/C&quot;) | x == (&quot;G/T&quot;) | x == (&quot;T/A&quot;) | x == (&quot;T/C&quot;) | x == (&quot;T/G&quot;)))) #Search for all heterozygous
-view(geno2) #Check work on last column
 geno2$missing &lt;- apply(geno2, 1, function(x) length(which(x == (&quot;?/?&quot;)))) #Find all missing data
-view(geno2) #Check work
 geno_totals &lt;- geno2 %&gt;% #Create new object for geno totals
   filter(Group %in% c(&quot;ZMMIL&quot;, &quot;ZMMLR&quot;, &quot;ZMMMR&quot;, &quot;ZMPBA&quot;, &quot;ZMPIL&quot;, &quot;ZMPJA&quot;)) %&gt;% #Filter by maize and teosinte groups
   mutate(species = fct_recode(Group,
@@ -758,7 +693,6 @@ geno_totals &lt;- geno2 %&gt;% #Create new object for geno totals
                               &quot;teosinte&quot; = &quot;ZMPBA&quot;,
                               &quot;teosinte&quot; = &quot;ZMPIL&quot;,
                               &quot;teosinte&quot; = &quot;ZMPJA&quot;)) #Create facet to display groups per species
-view(geno_totals) #Check work
 tapply(geno_totals$homozygous, geno_totals$Group, FUN=sum) #prints homozygous totals per group
 tapply(geno_totals$heterozygous, geno_totals$Group, FUN=sum) #prints heterozygous total per group
 tapply(geno_totals$missing, geno_totals$Group, FUN=sum) #prints missing totals per group
@@ -771,7 +705,6 @@ zygo_sums &lt;- zygosity_sums %&gt;% #Rename
   rename(homozygous = x) %&gt;% #Orders homozygous in 2nd column
   rename(heterozygous = x.1) %&gt;% #Orders heterozygous in 4th column
   rename(missing = x.2) #Orders missing in last column
-view(zygo_sums) #Prints zygosity sums per group
 zygo_sums2 &lt;- zygo_sums %&gt;% #Creates new object
   select(Group, homozygous, heterozygous, missing) %&gt;% #Selects just the wanted columns
   mutate(species = fct_recode(Group,
@@ -781,11 +714,9 @@ zygo_sums2 &lt;- zygo_sums %&gt;% #Creates new object
                               &quot;teosinte&quot; = &quot;ZMPBA&quot;,
                               &quot;teosinte&quot; = &quot;ZMPIL&quot;,
                               &quot;teosinte&quot; = &quot;ZMPJA&quot;)) #Creates facets for group
-view(zygo_sums2) #Removes redundant group information
 zygo_pivot &lt;- zygo_sums2 %&gt;% #Creates object to pivot data
   select(Group, species, homozygous, heterozygous, missing) %&gt;% #Select wanted data
   pivot_longer(., cols = c(homozygous, heterozygous, missing), names_to = &quot;Zygosity&quot;, values_to = &quot;Percent&quot;) #Pivots to make columns Group, Species, Zygosity, and Percent
-view(zygo_pivot) #Check work
 zygo_species &lt;- ggplot(zygo_pivot, aes(fill = Zygosity, y = Percent, x = species)) + #Make bar plot with x as species, y as percent and zyogisty for fill
   geom_bar(position=&quot;fill&quot;, stat=&quot;identity&quot;) + #Make it pretty
   xlab(&quot;Species&quot;) + #Rename x label as species
@@ -806,7 +737,6 @@ ggsave(&quot;Zygo_Groups.png&quot;, plot = zygo_groups, width = 10, height = 5, 
 <pre class="{r}"><code>geno5 &lt;- read.delim(&quot;https://raw.githubusercontent.com/EEOB-BioData/BCB546-Spring2022/main/assignments/UNIX_Assignment/fang_et_al_genotypes.txt&quot;, header = TRUE, sep = &quot;\t&quot;) #Pull new genotype file to mutate
 geno5$GC &lt;- apply(geno5, 1, function(x) length(which(x == (&quot;G/C&quot;) | x == (&quot;C/G&quot;)| x == (&quot;G/G&quot;) | x == (&quot;C/C&quot;)))) #Filters anything that is certainly a G or a C
 geno5$not_GC &lt;- apply(geno5, 1, function(x) length(which(x == (&quot;?/?&quot;) | x == (&quot;A/A&quot;) | x == (&quot;T/T&quot;) | x == (&quot;A/C&quot;) | x == (&quot;A/T&quot;) | x == (&quot;A/G&quot;) | x == (&quot;C/A&quot;) | x == (&quot;C/T&quot;) | x == (&quot;G/A&quot;) | x == (&quot;G/T&quot;) | x == (&quot;T/A&quot;) | x == (&quot;T/C&quot;) | x == (&quot;T/G&quot;)))) #Filters anything that is not for sure a G or C
-view(geno5) #Check work on last column               
 geno_gc &lt;- geno5 %&gt;%
   filter(Group %in% c(&quot;ZMMIL&quot;, &quot;ZMMLR&quot;, &quot;ZMMMR&quot;, &quot;ZMPBA&quot;, &quot;ZMPIL&quot;, &quot;ZMPJA&quot;)) %&gt;%
   mutate(species = fct_recode(Group,
@@ -815,12 +745,10 @@ geno_gc &lt;- geno5 %&gt;%
                               &quot;maize&quot; = &quot;ZMMMR&quot;,
                               &quot;teosinte&quot; = &quot;ZMPBA&quot;,
                               &quot;teosinte&quot; = &quot;ZMPIL&quot;,
-                              &quot;teosinte&quot; = &quot;ZMPJA&quot;)) #By filtering for group, we organize by species.              
-view(geno_gc) #Check last column for species
+                              &quot;teosinte&quot; = &quot;ZMPJA&quot;)) #By filtering for group, we organize by species.         
 gc_pivot &lt;- geno_gc %&gt;%
   select(Group, species, GC, not_GC) %&gt;%
   pivot_longer(., cols = c(GC, not_GC), names_to = &quot;GC_content&quot;, values_to = &quot;count&quot;) #Creates column just for GC content
-view(gc_pivot) #Check work
 gc_group_plot &lt;- ggplot(gc_pivot, aes(fill = GC_content, y = count, x = Group)) + #Creates bar plot where group is on the x and count is on the y
   xlab(&quot;Group&quot;) + #Relabel x axis to Group
   ylab(&quot;Proportion&quot;) + #Relabel y axis to Proportion
